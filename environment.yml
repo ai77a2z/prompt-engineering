@@ -1,4 +1,4 @@
-name: peng-advanced
+name: prompt-engineering
 channels:
   - defaults
   - conda-forge
