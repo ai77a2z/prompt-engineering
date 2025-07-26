@@ -1,0 +1,12 @@
+name: peng-advanced
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - openai
+      - langchain
+      - crewai
+      - autogen 

@@ -1,0 +1,15 @@
+site_name: Prompt Engineering for Advanced Users
+site_description: Advanced, practical guide to prompt engineering
+site_author: 
+
+theme:
+  name: material
+  language: en
+
+nav:
+  - Home: index.md
+  - Module 1 Prompt Engineering Foundations:
+     - Section 1 Introduction to Prompting: m1s1.md
+     - Section 2 Core Prompting Techniques: m1s2.md
+     - Section 3 The Professional Prompt Engineering Workflow: m1s3.md
+     - Section 4 Common Pitfalls to Avoid: m1s4.md
