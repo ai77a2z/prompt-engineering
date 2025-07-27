@@ -8,10 +8,10 @@ A hands-on, practical course for advanced prompt engineering techniques.
 
 **Live Course Website**: [https://prompt-engineering-zeta.vercel.app/](https://prompt-engineering-zeta.vercel.app/)
 
-- **📱 Mobile-friendly** - Works on all devices
-- **🔍 Built-in search** - Find topics quickly
-- **🎨 Professional design** - Material Design theme
-- **⚡ Fast loading** - Optimized static site
+- Mobile-friendly design
+- Built-in search functionality
+- Clean, readable layout
+- Static site for reliable access
 
 ## Course Structure
 
@@ -24,9 +24,9 @@ A hands-on, practical course for advanced prompt engineering techniques.
 ## 📚 Course Content
 
 ### Online Access (Recommended)
-- **Visit the live course**: [https://prompt-engineering-zeta.vercel.app/](https://prompt-engineering-zeta.vercel.app/)
-- Navigate through all 4 sections with beautiful formatting and search
-- Mobile-responsive design for learning anywhere
+- Visit the live course: [https://prompt-engineering-zeta.vercel.app/](https://prompt-engineering-zeta.vercel.app/)
+- Browse all 4 sections with search and navigation
+- Works on desktop and mobile devices
 
 ### Local Development
 - All markdown content is in `docs/` directory
@@ -35,21 +35,25 @@ A hands-on, practical course for advanced prompt engineering techniques.
 
 ## 💻 Code Examples
 
-- **Production-ready Python code** in the `code/` directory
-- **8 comprehensive files** with 2,000+ lines of tested implementations
-- **All examples validated** and include error handling
-- **Covers all course concepts** from basic to advanced techniques
+The `code/` directory contains Python examples to help you understand and practice the concepts covered in the course:
 
-### Quick Start with Code
+- **Learning-focused examples** that demonstrate key concepts
+- **Runnable code** to help solidify your understanding of the theory
+- **Educational implementations** covering topics from each course section
+- **Mock APIs and fallbacks** when external services aren't available
+
+### Running the Examples
 ```bash
-# Install dependencies
+# Install dependencies (optional - code includes fallbacks)
 pip install -r requirements.txt
 
-# Run any section's examples
+# Try out examples from any section
 cd code/module1/section1_introduction
 python3 basic_examples.py
 ```
 
+**Note**: These examples are designed for learning and experimentation. For production use, you'll want to adapt and extend them based on your specific requirements.
+
 ---
 
-**Enhanced, comprehensive, and production-ready** - everything you need for advanced prompt engineering.
+A practical course focused on real-world prompt engineering techniques.
