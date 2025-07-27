@@ -1,0 +1,2393 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Advanced, practical guide to prompt engineering">
+      
+      
+      
+      
+        <link rel="prev" href="../m1s1/">
+      
+      
+        <link rel="next" href="../m1s3/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Section 2 Core Prompting Techniques - Prompt Engineering for Advanced Users</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-core-prompting-techniques" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Prompt Engineering for Advanced Users" class="md-header__button md-logo" aria-label="Prompt Engineering for Advanced Users" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Prompt Engineering for Advanced Users
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Section 2 Core Prompting Techniques
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Prompt Engineering for Advanced Users" class="md-nav__button md-logo" aria-label="Prompt Engineering for Advanced Users" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Prompt Engineering for Advanced Users
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Module 1 Prompt Engineering Foundations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Module 1 Prompt Engineering Foundations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1s1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Section 1 Introduction to Prompting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Section 2 Core Prompting Techniques
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Section 2 Core Prompting Techniques
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-zero-shot-prompting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Zero-Shot Prompting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Zero-Shot Prompting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-zero-shot-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Zero-Shot Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-zero-shot-with-reasoning-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Zero-Shot with Reasoning Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-shot-performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zero-Shot Performance Optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-few-shot-prompting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Few-Shot Prompting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Few-Shot Prompting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-few-shot-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Few-Shot Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-few-shot-with-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Few-Shot with Reasoning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-few-shot-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Few-Shot Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#few-shot-chain-of-thought" class="md-nav__link">
+    <span class="md-ellipsis">
+      Few-Shot Chain-of-Thought
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-persona-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Persona Pattern
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Persona Pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-persona-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Persona Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-multi-layered-persona" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Multi-Layered Persona
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-persona-adaptation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Persona Adaptation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-advanced-output-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Advanced Output Formatting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Advanced Output Formatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-structured-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Structured Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-schema-driven-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Schema-Driven Formatting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-format-output-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Format Output Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-output-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditional Output Formatting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-advanced-chain-of-thought-cot-prompting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Advanced Chain-of-Thought (CoT) Prompting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Advanced Chain-of-Thought (CoT) Prompting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-chain-of-thought" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Chain-of-Thought
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structured-chain-of-thought-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structured Chain-of-Thought Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-perspective-chain-of-thought" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Perspective Chain-of-Thought
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-correcting-chain-of-thought" class="md-nav__link">
+    <span class="md-ellipsis">
+      Self-Correcting Chain-of-Thought
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-advanced-constraint-based-prompting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 Advanced Constraint-Based Prompting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Advanced Constraint-Based Prompting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-constraint-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Constraint Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-layered-constraint-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Layered Constraint System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-constraint-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Constraint Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethical-constraint-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ethical Constraint Framework
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-advanced-parameter-control-mastering-model-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7 Advanced Parameter Control: Mastering Model Behavior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7 Advanced Parameter Control: Mastering Model Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-sampling-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Sampling Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Sampling Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#temperature-the-creativity-dial" class="md-nav__link">
+    <span class="md-ellipsis">
+      temperature - The Creativity Dial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top_p-nucleus-sampling-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      top_p (Nucleus Sampling) - Quality Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top_k-vocabulary-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      top_k - Vocabulary Limiting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-control-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Control Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Control Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frequency_penalty-repetition-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      frequency_penalty - Repetition Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#presence_penalty-topic-diversity" class="md-nav__link">
+    <span class="md-ellipsis">
+      presence_penalty - Topic Diversity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-parameter-combinations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Parameter Combinations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Parameter Combinations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-specific-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task-Specific Configurations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-parameter-adjustment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Parameter Adjustment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dynamic Parameter Adjustment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context-aware-parameter-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context-Aware Parameter Selection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-optimization-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Optimization Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameter Optimization Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ab-testing-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      A/B Testing Framework
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#production-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-monitoring-and-adjustment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Monitoring and Adjustment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways-for-parameter-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways for Parameter Control
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1s3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Section 3 The Professional Prompt Engineering Workflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1s4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Section 4 Common Pitfalls to Avoid
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-zero-shot-prompting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Zero-Shot Prompting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Zero-Shot Prompting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-zero-shot-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Zero-Shot Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-zero-shot-with-reasoning-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Zero-Shot with Reasoning Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-shot-performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zero-Shot Performance Optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-few-shot-prompting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Few-Shot Prompting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Few-Shot Prompting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-few-shot-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Few-Shot Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-few-shot-with-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Few-Shot with Reasoning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-few-shot-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Few-Shot Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#few-shot-chain-of-thought" class="md-nav__link">
+    <span class="md-ellipsis">
+      Few-Shot Chain-of-Thought
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-persona-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Persona Pattern
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Persona Pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-persona-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Persona Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-multi-layered-persona" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Multi-Layered Persona
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-persona-adaptation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Persona Adaptation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-advanced-output-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Advanced Output Formatting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Advanced Output Formatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-structured-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Structured Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-schema-driven-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Schema-Driven Formatting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-format-output-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Format Output Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-output-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditional Output Formatting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-advanced-chain-of-thought-cot-prompting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Advanced Chain-of-Thought (CoT) Prompting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Advanced Chain-of-Thought (CoT) Prompting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-chain-of-thought" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Chain-of-Thought
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structured-chain-of-thought-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structured Chain-of-Thought Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-perspective-chain-of-thought" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Perspective Chain-of-Thought
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-correcting-chain-of-thought" class="md-nav__link">
+    <span class="md-ellipsis">
+      Self-Correcting Chain-of-Thought
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-advanced-constraint-based-prompting" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 Advanced Constraint-Based Prompting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Advanced Constraint-Based Prompting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-constraint-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Constraint Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-layered-constraint-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Layered Constraint System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-constraint-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Constraint Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethical-constraint-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ethical Constraint Framework
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-advanced-parameter-control-mastering-model-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7 Advanced Parameter Control: Mastering Model Behavior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7 Advanced Parameter Control: Mastering Model Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-sampling-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Sampling Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Sampling Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#temperature-the-creativity-dial" class="md-nav__link">
+    <span class="md-ellipsis">
+      temperature - The Creativity Dial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top_p-nucleus-sampling-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      top_p (Nucleus Sampling) - Quality Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top_k-vocabulary-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      top_k - Vocabulary Limiting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-control-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Control Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Control Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frequency_penalty-repetition-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      frequency_penalty - Repetition Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#presence_penalty-topic-diversity" class="md-nav__link">
+    <span class="md-ellipsis">
+      presence_penalty - Topic Diversity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-parameter-combinations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Parameter Combinations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Parameter Combinations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-specific-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task-Specific Configurations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-parameter-adjustment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Parameter Adjustment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dynamic Parameter Adjustment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context-aware-parameter-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context-Aware Parameter Selection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-optimization-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Optimization Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameter Optimization Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ab-testing-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      A/B Testing Framework
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#production-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-monitoring-and-adjustment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameter Monitoring and Adjustment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways-for-parameter-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways for Parameter Control
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="2-core-prompting-techniques">2. Core Prompting Techniques</h1>
+<p>The following techniques are fundamental building blocks for effective prompt engineering. These techniques form the foundation of advanced prompt engineering and can be combined to create sophisticated AI interactions.</p>
+<h3 id="21-zero-shot-prompting">2.1 Zero-Shot Prompting</h3>
+<p>You ask the model to perform a task without giving it any prior examples of how to do it. This works for simple, well-understood tasks but can be enhanced with advanced techniques.</p>
+<h4 id="basic-zero-shot-example">Basic Zero-Shot Example</h4>
+<pre><code class="language-python">prompt = &quot;&quot;&quot;
+Extract all email addresses from the following text and return them as a JSON list.
+
+Text: &quot;You can reach out to support@example.com or for sales, contact sales-team@example.com. Do not use admin@example.com.&quot;
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="advanced-zero-shot-with-reasoning-framework">Advanced Zero-Shot with Reasoning Framework</h4>
+<pre><code class="language-python">advanced_zero_shot = &quot;&quot;&quot;
+# ROLE &amp; EXPERTISE
+You are an expert data extraction specialist with knowledge of email validation patterns.
+
+# COGNITIVE APPROACH
+1. Scan text for email patterns (username@domain.extension)
+2. Validate each potential email against RFC standards
+3. Categorize by purpose (support, sales, admin, etc.)
+4. Assess confidence level for each extraction
+
+# TASK
+Extract all email addresses from the following text.
+
+# OUTPUT REQUIREMENTS
+Return a JSON object with:
+- &quot;emails&quot;: array of valid email addresses
+- &quot;categories&quot;: purpose classification for each email
+- &quot;confidence_scores&quot;: reliability rating (0.0-1.0) for each extraction
+- &quot;validation_notes&quot;: any concerns about email validity
+
+# ERROR HANDLING
+If no valid emails found, return: {&quot;emails&quot;: [], &quot;message&quot;: &quot;No valid email addresses detected&quot;}
+
+Text: &quot;You can reach out to support@example.com or for sales, contact sales-team@example.com. Do not use admin@example.com.&quot;
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="zero-shot-performance-optimization">Zero-Shot Performance Optimization</h4>
+<pre><code class="language-python"># Technique: Constraint-based zero-shot
+optimized_zero_shot = &quot;&quot;&quot;
+Extract email addresses with the following constraints:
+- Must follow standard email format (user@domain.tld)
+- Exclude any emails marked as &quot;do not use&quot;
+- Include confidence assessment
+- Process in order of appearance
+
+Return format: [{&quot;email&quot;: &quot;address&quot;, &quot;confidence&quot;: 0.95, &quot;context&quot;: &quot;purpose&quot;}]
+
+Text: [INPUT_TEXT]
+&quot;&quot;&quot;
+</code></pre>
+<h3 id="22-few-shot-prompting">2.2 Few-Shot Prompting</h3>
+<p>You provide the model with a few examples (<code>shots</code>) of the task being completed. This helps the model understand the pattern, format, and desired output quality.</p>
+<h4 id="basic-few-shot-example">Basic Few-Shot Example</h4>
+<pre><code class="language-python">ticket_to_classify = &quot;The login button is not working on the mobile app.&quot;
+
+prompt = f&quot;&quot;&quot;
+Classify the support ticket as 'Bug', 'Feature Request', or 'Question'.
+
+Ticket: 'How do I change my password?'
+Category: Question
+
+Ticket: 'It would be great if you added a dark mode.'
+Category: Feature Request
+
+Ticket: '{ticket_to_classify}'
+Category:
+&quot;&quot;&quot;
+# Expected Output: Bug
+</code></pre>
+<h4 id="advanced-few-shot-with-reasoning">Advanced Few-Shot with Reasoning</h4>
+<pre><code class="language-python">advanced_few_shot = f&quot;&quot;&quot;
+# CLASSIFICATION TASK
+Classify support tickets with reasoning and confidence scores.
+
+# EXAMPLES WITH REASONING
+Ticket: &quot;How do I change my password?&quot;
+Reasoning: User is asking for instructions on an existing feature
+Category: Question
+Confidence: 0.95
+
+Ticket: &quot;It would be great if you added a dark mode.&quot;
+Reasoning: User is suggesting a new feature that doesn't currently exist
+Category: Feature Request
+Confidence: 0.90
+
+Ticket: &quot;The app crashes when I try to upload a photo.&quot;
+Reasoning: User reports unexpected behavior indicating a software defect
+Category: Bug
+Confidence: 0.98
+
+# CLASSIFICATION CRITERIA
+- Bug: Unexpected behavior, errors, crashes, or malfunctions
+- Feature Request: Suggestions for new functionality or improvements
+- Question: Requests for help, information, or clarification
+
+# YOUR TASK
+Ticket: &quot;{ticket_to_classify}&quot;
+Reasoning:
+Category:
+Confidence:
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="dynamic-few-shot-selection">Dynamic Few-Shot Selection</h4>
+<pre><code class="language-python">class DynamicFewShotSelector:
+    def __init__(self, example_bank):
+        self.example_bank = example_bank
+
+    def select_examples(self, input_text, num_examples=3):
+        # Use semantic similarity to select most relevant examples
+        similarities = []
+        for example in self.example_bank:
+            similarity = self._calculate_similarity(input_text, example['input'])
+            similarities.append((similarity, example))
+
+        # Return top N most similar examples
+        similarities.sort(reverse=True)
+        return [example for _, example in similarities[:num_examples]]
+
+    def generate_prompt(self, input_text, task_description):
+        selected_examples = self.select_examples(input_text)
+
+        prompt = f&quot;{task_description}\n\n&quot;
+        for example in selected_examples:
+            prompt += f&quot;Input: {example['input']}\nOutput: {example['output']}\n\n&quot;
+        prompt += f&quot;Input: {input_text}\nOutput:&quot;
+
+        return prompt
+</code></pre>
+<h4 id="few-shot-chain-of-thought">Few-Shot Chain-of-Thought</h4>
+<pre><code class="language-python">few_shot_cot = &quot;&quot;&quot;
+Solve these math word problems step by step.
+
+Problem: &quot;Sarah has 15 apples. She gives 3 to her friend and buys 8 more. How many apples does she have?&quot;
+Thinking: Sarah starts with 15 apples. After giving away 3, she has 15-3=12 apples. Then she buys 8 more, so 12+8=20 apples.
+Answer: 20
+
+Problem: &quot;A store sells books for $12 each. If someone buys 4 books and pays with a $50 bill, how much change do they get?&quot;
+Thinking: 4 books cost 4×$12=$48. Change from $50 is $50-$48=$2.
+Answer: $2
+
+Problem: &quot;Tom runs 3 miles every day for a week. How many miles does he run in total?&quot;
+Thinking:
+Answer:
+&quot;&quot;&quot;
+</code></pre>
+<h3 id="23-persona-pattern">2.3 Persona Pattern</h3>
+<p>You instruct the model to adopt a specific role or persona. This focuses the model's knowledge and tone, leading to more context-aware and expert-level responses.</p>
+<h4 id="basic-persona-example">Basic Persona Example</h4>
+<pre><code class="language-python">message = &quot;John Smith, our customer at 122 Main St, called to complain. His email is john.s@email.com.&quot;
+
+prompt = f&quot;&quot;&quot;
+You are a GDPR compliance officer. Review the following message for Personally Identifiable Information (PII).
+Identify all PII categories found in the text.
+
+Message: &quot;{message}&quot;
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="advanced-multi-layered-persona">Advanced Multi-Layered Persona</h4>
+<pre><code class="language-python">advanced_persona = f&quot;&quot;&quot;
+# PERSONA DEFINITION
+You are Dr. Elena Rodriguez, a senior GDPR compliance officer with 8 years of experience in data privacy law.
+
+# PROFESSIONAL BACKGROUND
+- Certified Data Protection Officer (DPO)
+- Specialization in EU privacy regulations
+- Experience with multinational compliance frameworks
+- Track record of successful privacy audits
+
+# COGNITIVE APPROACH
+1. Systematic PII identification using GDPR Article 4 definitions
+2. Risk assessment based on data sensitivity levels
+3. Compliance gap analysis
+4. Actionable remediation recommendations
+
+# COMMUNICATION STYLE
+- Precise legal terminology when appropriate
+- Clear explanations for non-legal stakeholders
+- Risk-based prioritization of findings
+- Practical implementation guidance
+
+# ANALYSIS FRAMEWORK
+For each PII element found:
+- Category (name, email, address, etc.)
+- Sensitivity level (low/medium/high)
+- Legal basis for processing
+- Retention requirements
+- Recommended actions
+
+Message to analyze: &quot;{message}&quot;
+
+Provide comprehensive GDPR compliance analysis.
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="dynamic-persona-adaptation">Dynamic Persona Adaptation</h4>
+<pre><code class="language-python">class PersonaManager:
+    def __init__(self):
+        self.personas = {
+            &quot;technical_expert&quot;: {
+                &quot;identity&quot;: &quot;Senior Software Architect with 15+ years experience&quot;,
+                &quot;expertise&quot;: [&quot;system design&quot;, &quot;scalability&quot;, &quot;performance optimization&quot;],
+                &quot;communication_style&quot;: &quot;technical precision with practical examples&quot;
+            },
+            &quot;business_analyst&quot;: {
+                &quot;identity&quot;: &quot;Strategic Business Analyst with MBA and consulting background&quot;,
+                &quot;expertise&quot;: [&quot;market analysis&quot;, &quot;ROI calculation&quot;, &quot;strategic planning&quot;],
+                &quot;communication_style&quot;: &quot;executive summary format with actionable insights&quot;
+            },
+            &quot;customer_advocate&quot;: {
+                &quot;identity&quot;: &quot;Customer Experience Specialist with psychology background&quot;,
+                &quot;expertise&quot;: [&quot;user empathy&quot;, &quot;journey mapping&quot;, &quot;satisfaction metrics&quot;],
+                &quot;communication_style&quot;: &quot;empathetic and user-focused recommendations&quot;
+            }
+        }
+
+    def select_persona(self, task_type, context):
+        # Logic to select appropriate persona based on task and context
+        if &quot;technical&quot; in task_type.lower():
+            return self.personas[&quot;technical_expert&quot;]
+        elif &quot;business&quot; in task_type.lower() or &quot;strategy&quot; in task_type.lower():
+            return self.personas[&quot;business_analyst&quot;]
+        elif &quot;customer&quot; in task_type.lower() or &quot;user&quot; in task_type.lower():
+            return self.personas[&quot;customer_advocate&quot;]
+        else:
+            return self.personas[&quot;business_analyst&quot;]  # Default
+
+    def generate_persona_prompt(self, persona_key, task_description):
+        persona = self.personas[persona_key]
+        return f&quot;&quot;&quot;
+        # ROLE &amp; IDENTITY
+        You are a {persona['identity']}.
+
+        # EXPERTISE AREAS
+        Your core competencies include: {', '.join(persona['expertise'])}
+
+        # COMMUNICATION APPROACH
+        {persona['communication_style']}
+
+        # TASK
+        {task_description}
+
+        Provide analysis from your expert perspective.
+        &quot;&quot;&quot;
+</code></pre>
+<h3 id="24-advanced-output-formatting">2.4 Advanced Output Formatting</h3>
+<p>You explicitly instruct the model to structure its response in a specific format, like JSON or XML. This is critical for integrating LLM outputs into automated workflows and software.</p>
+<h4 id="basic-structured-output">Basic Structured Output</h4>
+<pre><code class="language-python">invoice_text = &quot;Invoice #456: 1x T-Shirt for $25.00, 2x Mug for $15.50 each.&quot;
+
+prompt = f&quot;&quot;&quot;
+Extract all line items from the following invoice text.
+Return the result as a JSON array where each object has &quot;item&quot;, &quot;quantity&quot;, and &quot;price&quot; keys.
+
+Invoice: &quot;{invoice_text}&quot;
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="advanced-schema-driven-formatting">Advanced Schema-Driven Formatting</h4>
+<pre><code class="language-python">schema_driven_prompt = f&quot;&quot;&quot;
+# OUTPUT SCHEMA DEFINITION
+Return data conforming to this exact JSON schema:
+{{
+  &quot;invoice_data&quot;: {{
+    &quot;invoice_id&quot;: &quot;string&quot;,
+    &quot;line_items&quot;: [
+      {{
+        &quot;item_name&quot;: &quot;string&quot;,
+        &quot;quantity&quot;: &quot;integer&quot;,
+        &quot;unit_price&quot;: &quot;float&quot;,
+        &quot;total_price&quot;: &quot;float&quot;,
+        &quot;category&quot;: &quot;string (clothing|accessories|other)&quot;
+      }}
+    ],
+    &quot;subtotal&quot;: &quot;float&quot;,
+    &quot;metadata&quot;: {{
+      &quot;extraction_confidence&quot;: &quot;float (0.0-1.0)&quot;,
+      &quot;parsing_notes&quot;: &quot;string&quot;
+    }}
+  }}
+}}
+
+# VALIDATION RULES
+- All prices must be positive numbers
+- Quantities must be positive integers
+- Total price = quantity × unit_price
+- Subtotal = sum of all total_prices
+
+# ERROR HANDLING
+If data cannot be extracted, return:
+{{
+  &quot;error&quot;: &quot;extraction_failed&quot;,
+  &quot;reason&quot;: &quot;specific reason for failure&quot;
+}}
+
+Invoice text: &quot;{invoice_text}&quot;
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="multi-format-output-support">Multi-Format Output Support</h4>
+<pre><code class="language-python">class OutputFormatter:
+    def __init__(self):
+        self.formats = {
+            &quot;json&quot;: self._json_format,
+            &quot;xml&quot;: self._xml_format,
+            &quot;csv&quot;: self._csv_format,
+            &quot;markdown&quot;: self._markdown_format
+        }
+
+    def generate_format_prompt(self, data_description, output_format, validation_rules=None):
+        base_prompt = f&quot;Extract and structure the following data: {data_description}\n\n&quot;
+
+        format_instructions = self.formats.get(output_format, self._json_format)()
+        base_prompt += format_instructions
+
+        if validation_rules:
+            base_prompt += f&quot;\n\nValidation Requirements:\n{validation_rules}&quot;
+
+        return base_prompt
+
+    def _json_format(self):
+        return &quot;&quot;&quot;
+        Return data as valid JSON with:
+        - Proper escaping of special characters
+        - Consistent field naming (snake_case)
+        - Type consistency across records
+        - Include confidence scores where applicable
+        &quot;&quot;&quot;
+
+    def _xml_format(self):
+        return &quot;&quot;&quot;
+        Return data as well-formed XML with:
+        - Proper element nesting
+        - Attribute usage for metadata
+        - CDATA sections for text content
+        - Schema validation compatibility
+        &quot;&quot;&quot;
+</code></pre>
+<h4 id="conditional-output-formatting">Conditional Output Formatting</h4>
+<pre><code class="language-python">conditional_format_prompt = &quot;&quot;&quot;
+# ADAPTIVE OUTPUT FORMATTING
+Analyze the input data and choose the most appropriate output format:
+
+- If data is tabular → CSV format
+- If data is hierarchical → JSON format  
+- If data contains rich text → Markdown format
+- If data needs validation → XML with schema
+
+# FORMAT SELECTION CRITERIA
+1. Data structure complexity
+2. Downstream system requirements
+3. Human readability needs
+4. Validation requirements
+
+# OUTPUT REQUIREMENTS
+1. First line: &quot;FORMAT_SELECTED: [chosen_format]&quot;
+2. Second line: &quot;REASONING: [why this format was chosen]&quot;
+3. Remaining content: Data in selected format
+
+Input data: [DATA_TO_PROCESS]
+&quot;&quot;&quot;
+</code></pre>
+<h3 id="25-advanced-chain-of-thought-cot-prompting">2.5 Advanced Chain-of-Thought (CoT) Prompting</h3>
+<p>Chain-of-Thought prompting guides the model to break down a complex problem into intermediate steps before giving a final answer. This mimics human reasoning and significantly improves performance on tasks requiring logic or analysis. 🧠</p>
+<h4 id="basic-chain-of-thought">Basic Chain-of-Thought</h4>
+<pre><code class="language-python">incident_report = &quot;&quot;&quot;
+At 14:05, service A started returning 502 errors.
+At 14:02, service B (a dependency of A) was deployed.
+The deployment logs for B show a new database connection string was used.
+Rollback of B at 14:10 resolved the issue for A.
+&quot;&quot;&quot;
+
+prompt = f&quot;&quot;&quot;
+Analyze the following incident report. First, think step-by-step to explain the sequence of events and their relationships.
+After your step-by-step analysis, conclude with the most likely root cause.
+
+Report:
+---
+{incident_report}
+---
+
+Step-by-step analysis:
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="structured-chain-of-thought-framework">Structured Chain-of-Thought Framework</h4>
+<pre><code class="language-python">structured_cot = f&quot;&quot;&quot;
+# SYSTEMATIC INCIDENT ANALYSIS FRAMEWORK
+
+## STEP 1: TIMELINE RECONSTRUCTION
+List all events in chronological order with timestamps.
+
+## STEP 2: DEPENDENCY MAPPING
+Identify relationships between services and components.
+
+## STEP 3: CORRELATION ANALYSIS
+Analyze timing correlations between events.
+
+## STEP 4: HYPOTHESIS FORMATION
+Generate potential root cause hypotheses based on evidence.
+
+## STEP 5: EVIDENCE EVALUATION
+Assess supporting and contradicting evidence for each hypothesis.
+
+## STEP 6: ROOT CAUSE DETERMINATION
+Select most likely root cause with confidence level.
+
+## STEP 7: PREVENTION RECOMMENDATIONS
+Suggest measures to prevent similar incidents.
+
+# INCIDENT DATA
+{incident_report}
+
+# BEGIN ANALYSIS
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="multi-perspective-chain-of-thought">Multi-Perspective Chain-of-Thought</h4>
+<pre><code class="language-python">multi_perspective_cot = &quot;&quot;&quot;
+# MULTI-EXPERT ANALYSIS APPROACH
+Analyze this incident from multiple expert perspectives:
+
+## PERSPECTIVE 1: INFRASTRUCTURE ENGINEER
+Focus on: System architecture, deployment processes, infrastructure dependencies
+Analysis:
+[Infrastructure perspective analysis]
+
+## PERSPECTIVE 2: DATABASE ADMINISTRATOR  
+Focus on: Database connections, configuration changes, data integrity
+Analysis:
+[Database perspective analysis]
+
+## PERSPECTIVE 3: SITE RELIABILITY ENGINEER
+Focus on: Service reliability, monitoring, incident response
+Analysis:
+[SRE perspective analysis]
+
+## SYNTHESIS
+Combine insights from all perspectives to determine:
+1. Primary root cause
+2. Contributing factors
+3. Systemic issues
+4. Improvement opportunities
+
+Incident data: [INCIDENT_DETAILS]
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="self-correcting-chain-of-thought">Self-Correcting Chain-of-Thought</h4>
+<pre><code class="language-python">self_correcting_cot = &quot;&quot;&quot;
+# SELF-VALIDATING REASONING PROCESS
+
+## INITIAL ANALYSIS
+[Perform initial step-by-step analysis]
+
+## CRITICAL REVIEW
+Now, critically examine your initial analysis:
+1. Are there any logical inconsistencies?
+2. Did you consider all available evidence?
+3. Are there alternative explanations?
+4. What assumptions did you make?
+
+## REVISED ANALYSIS
+Based on your critical review, provide a refined analysis:
+[Corrected or confirmed analysis]
+
+## CONFIDENCE ASSESSMENT
+Rate your confidence in the final conclusion (1-10) and explain why.
+
+Problem to analyze: [PROBLEM_STATEMENT]
+&quot;&quot;&quot;
+</code></pre>
+<h3 id="26-advanced-constraint-based-prompting">2.6 Advanced Constraint-Based Prompting</h3>
+<p>You provide negative constraints or explicit rules about what the model <em>should not</em> do. This acts as a guardrail to prevent undesirable outputs and ensure safety.</p>
+<h4 id="basic-constraint-example">Basic Constraint Example</h4>
+<pre><code class="language-python">text_with_pii = &quot;User John Doe (john.doe@email.com, phone 555-122-4567) reported an issue.&quot;
+
+prompt = f&quot;&quot;&quot;
+Redact all Personally Identifiable Information (PII) from the text below.
+PII includes names, email addresses, and phone numbers.
+IMPORTANT: Do not alter or remove any other part of the text.
+
+Original Text: &quot;{text_with_pii}&quot;
+
+Redacted Text:
+&quot;&quot;&quot;
+# Expected Output: User [REDACTED] ([REDACTED], phone [REDACTED]) reported an issue.
+</code></pre>
+<h4 id="multi-layered-constraint-system">Multi-Layered Constraint System</h4>
+<pre><code class="language-python">advanced_constraints = f&quot;&quot;&quot;
+# CONSTRAINT HIERARCHY (Priority Order)
+
+## LEVEL 1: SAFETY CONSTRAINTS (NEVER VIOLATE)
+- Never generate harmful, illegal, or unethical content
+- Never reveal sensitive personal information
+- Never provide medical, legal, or financial advice
+
+## LEVEL 2: COMPLIANCE CONSTRAINTS (REGULATORY)
+- Comply with GDPR data protection requirements
+- Follow industry-specific regulations (HIPAA, SOX, etc.)
+- Maintain audit trail for sensitive operations
+
+## LEVEL 3: BUSINESS CONSTRAINTS (OPERATIONAL)
+- Stay within specified response length limits
+- Use only approved terminology and language
+- Follow brand voice and tone guidelines
+
+## LEVEL 4: TECHNICAL CONSTRAINTS (SYSTEM)
+- Output must be valid JSON/XML as specified
+- Response time should be under 3 seconds
+- Token usage should be optimized
+
+# CONSTRAINT VALIDATION
+Before providing final output, verify:
+1. No safety constraints violated
+2. All compliance requirements met
+3. Business rules followed
+4. Technical specifications satisfied
+
+# TASK WITH CONSTRAINTS
+{text_with_pii}
+
+Process according to all constraint levels above.
+&quot;&quot;&quot;
+</code></pre>
+<h4 id="dynamic-constraint-application">Dynamic Constraint Application</h4>
+<pre><code class="language-python">class ConstraintManager:
+    def __init__(self):
+        self.constraint_sets = {
+            &quot;healthcare&quot;: {
+                &quot;privacy&quot;: [&quot;No PHI disclosure&quot;, &quot;HIPAA compliance required&quot;],
+                &quot;safety&quot;: [&quot;No medical advice&quot;, &quot;Refer to healthcare professionals&quot;],
+                &quot;accuracy&quot;: [&quot;Cite medical sources&quot;, &quot;Include disclaimers&quot;]
+            },
+            &quot;financial&quot;: {
+                &quot;privacy&quot;: [&quot;No PII in logs&quot;, &quot;SOX compliance&quot;],
+                &quot;safety&quot;: [&quot;No investment advice&quot;, &quot;Risk disclosures required&quot;],
+                &quot;accuracy&quot;: [&quot;Use verified financial data&quot;, &quot;Include uncertainty measures&quot;]
+            },
+            &quot;general&quot;: {
+                &quot;privacy&quot;: [&quot;Redact PII&quot;, &quot;Data minimization&quot;],
+                &quot;safety&quot;: [&quot;No harmful content&quot;, &quot;Age-appropriate responses&quot;],
+                &quot;accuracy&quot;: [&quot;Fact-check claims&quot;, &quot;Cite sources when possible&quot;]
+            }
+        }
+
+    def generate_constraint_prompt(self, domain, base_task):
+        constraints = self.constraint_sets.get(domain, self.constraint_sets[&quot;general&quot;])
+
+        constraint_text = &quot;# DOMAIN-SPECIFIC CONSTRAINTS\n&quot;
+        for category, rules in constraints.items():
+            constraint_text += f&quot;\n## {category.upper()}\n&quot;
+            for rule in rules:
+                constraint_text += f&quot;- {rule}\n&quot;
+
+        return f&quot;&quot;&quot;
+        {constraint_text}
+
+        # CONSTRAINT ENFORCEMENT
+        Before responding, verify compliance with all constraints above.
+        If any constraint would be violated, modify approach or decline task.
+
+        # TASK
+        {base_task}
+
+        # COMPLIANCE VERIFICATION
+        Confirm: All constraints satisfied? [Yes/No with explanation]
+        &quot;&quot;&quot;
+</code></pre>
+<h4 id="ethical-constraint-framework">Ethical Constraint Framework</h4>
+<pre><code class="language-python">ethical_constraints = &quot;&quot;&quot;
+# ETHICAL AI FRAMEWORK
+
+## CORE PRINCIPLES
+1. **Beneficence**: Actions should benefit users and society
+2. **Non-maleficence**: &quot;Do no harm&quot; - avoid negative consequences
+3. **Autonomy**: Respect user agency and decision-making
+4. **Justice**: Fair treatment and non-discrimination
+5. **Transparency**: Clear about capabilities and limitations
+
+## BIAS PREVENTION
+- Avoid stereotypes based on race, gender, age, religion, etc.
+- Use inclusive language and examples
+- Consider diverse perspectives in analysis
+- Flag potential bias in source materials
+
+## PRIVACY PROTECTION
+- Minimize data collection and retention
+- Anonymize examples and case studies
+- Respect confidentiality expectations
+- Follow data protection best practices
+
+## ACCOUNTABILITY MEASURES
+- Provide reasoning for recommendations
+- Include confidence levels and limitations
+- Enable human oversight and intervention
+- Maintain decision audit trails
+
+# ETHICAL CHECKPOINT
+Before finalizing response, ask:
+1. Does this response uphold all ethical principles?
+2. Could this cause harm to any individual or group?
+3. Am I being transparent about limitations?
+4. Is this recommendation in the user's best interest?
+
+Task: [TASK_DESCRIPTION]
+&quot;&quot;&quot;
+</code></pre>
+<p>Of course. Here is the additional content, crafted to integrate seamlessly with the existing sections and complete the module.</p>
+<p>This content introduces the concept of system/user roles, key model parameters, the iterative workflow, and common pitfalls, transforming the document into a comprehensive foundational guide.</p>
+<hr />
+<h2 id="27-advanced-parameter-control-mastering-model-behavior">2.7 Advanced Parameter Control: Mastering Model Behavior</h2>
+<p>When you make an API call, you can pass multiple parameters that influence the model's output style, creativity, and reliability. Understanding these parameters is crucial for fine-tuning model behavior for specific use cases.</p>
+<h3 id="core-sampling-parameters">Core Sampling Parameters</h3>
+<h4 id="temperature-the-creativity-dial"><strong><code>temperature</code></strong> - The Creativity Dial</h4>
+<p>This parameter controls the randomness of the model's output. It accepts a value between 0 and 2.</p>
+<p><strong>Technical Details:</strong>
+- Controls the softmax temperature in the probability distribution
+- Lower values make the distribution more peaked (deterministic)
+- Higher values flatten the distribution (more random)</p>
+<p><strong>Practical Guidelines:</strong></p>
+<pre><code class="language-python"># Ultra-precise tasks (financial calculations, code generation)
+temperature = 0.0  # Completely deterministic
+
+# Factual tasks (data extraction, summarization)
+temperature = 0.1  # Minimal randomness
+
+# Balanced tasks (customer service, explanations)
+temperature = 0.3  # Slight variation
+
+# Creative tasks (marketing copy, brainstorming)
+temperature = 0.7  # Moderate creativity
+
+# Highly creative tasks (storytelling, poetry)
+temperature = 1.0  # High creativity
+
+# Experimental/artistic tasks
+temperature = 1.5  # Very high randomness
+</code></pre>
+<h4 id="top_p-nucleus-sampling-quality-control"><strong><code>top_p</code></strong> (Nucleus Sampling) - Quality Control</h4>
+<p>Controls the cumulative probability cutoff for token selection. Value between 0 and 1.</p>
+<p><strong>How it works:</strong>
+- Selects from the smallest set of tokens whose cumulative probability exceeds <code>top_p</code>
+- More sophisticated than <code>top_k</code> as it adapts to the probability distribution</p>
+<p><strong>Practical Applications:</strong></p>
+<pre><code class="language-python"># High-quality, focused outputs
+top_p = 0.1  # Very conservative, only most likely tokens
+
+# Balanced quality and diversity
+top_p = 0.9  # Standard setting for most applications
+
+# More diverse outputs
+top_p = 0.95  # Allows more token variety
+
+# Maximum diversity (use with caution)
+top_p = 1.0  # No filtering
+</code></pre>
+<p><strong>Advanced Usage Pattern:</strong></p>
+<pre><code class="language-python"># Combine with temperature for fine control
+config_precise = {&quot;temperature&quot;: 0.2, &quot;top_p&quot;: 0.8}  # Focused but not rigid
+config_creative = {&quot;temperature&quot;: 0.8, &quot;top_p&quot;: 0.95}  # Creative but coherent
+config_experimental = {&quot;temperature&quot;: 1.2, &quot;top_p&quot;: 0.9}  # High creativity with quality control
+</code></pre>
+<h4 id="top_k-vocabulary-limiting"><strong><code>top_k</code></strong> - Vocabulary Limiting</h4>
+<p>Limits the model to consider only the top K most likely tokens at each step.</p>
+<p><strong>Use Cases:</strong></p>
+<pre><code class="language-python"># Highly constrained vocabulary (technical documentation)
+top_k = 10
+
+# Moderate constraint (business writing)
+top_k = 40
+
+# Balanced approach (general content)
+top_k = 50
+
+# More variety (creative writing)
+top_k = 100
+</code></pre>
+<h3 id="advanced-control-parameters">Advanced Control Parameters</h3>
+<h4 id="frequency_penalty-repetition-control"><strong><code>frequency_penalty</code></strong> - Repetition Control</h4>
+<p>Reduces the likelihood of repeating tokens based on their frequency in the text so far.</p>
+<p><strong>Range:</strong> -2.0 to 2.0
+- <strong>Positive values:</strong> Discourage repetition
+- <strong>Negative values:</strong> Encourage repetition
+- <strong>Zero:</strong> No penalty</p>
+<p><strong>Strategic Applications:</strong></p>
+<pre><code class="language-python"># Avoid repetitive content (reports, articles)
+frequency_penalty = 0.5
+
+# Strong anti-repetition (creative writing)
+frequency_penalty = 1.0
+
+# Encourage consistency (technical documentation)
+frequency_penalty = -0.2
+
+# Maximum repetition avoidance
+frequency_penalty = 2.0
+</code></pre>
+<h4 id="presence_penalty-topic-diversity"><strong><code>presence_penalty</code></strong> - Topic Diversity</h4>
+<p>Reduces the likelihood of repeating any token that has appeared in the text so far.</p>
+<p><strong>Key Difference from Frequency Penalty:</strong>
+- Frequency penalty: Based on how often a token appears
+- Presence penalty: Based on whether a token has appeared at all</p>
+<p><strong>Applications:</strong></p>
+<pre><code class="language-python"># Encourage topic diversity (brainstorming)
+presence_penalty = 0.6
+
+# Strong topic variation (creative exploration)
+presence_penalty = 1.2
+
+# Maintain topic focus
+presence_penalty = 0.0
+</code></pre>
+<h3 id="advanced-parameter-combinations">Advanced Parameter Combinations</h3>
+<h4 id="task-specific-configurations"><strong>Task-Specific Configurations</strong></h4>
+<pre><code class="language-python">class ParameterProfiles:
+    def __init__(self):
+        self.profiles = {
+            &quot;data_extraction&quot;: {
+                &quot;temperature&quot;: 0.0,
+                &quot;top_p&quot;: 0.1,
+                &quot;top_k&quot;: 5,
+                &quot;frequency_penalty&quot;: 0.0,
+                &quot;presence_penalty&quot;: 0.0,
+                &quot;description&quot;: &quot;Maximum precision and consistency&quot;
+            },
+
+            &quot;technical_writing&quot;: {
+                &quot;temperature&quot;: 0.3,
+                &quot;top_p&quot;: 0.8,
+                &quot;top_k&quot;: 40,
+                &quot;frequency_penalty&quot;: 0.3,
+                &quot;presence_penalty&quot;: 0.1,
+                &quot;description&quot;: &quot;Clear, varied, professional content&quot;
+            },
+
+            &quot;creative_content&quot;: {
+                &quot;temperature&quot;: 0.8,
+                &quot;top_p&quot;: 0.95,
+                &quot;top_k&quot;: 80,
+                &quot;frequency_penalty&quot;: 0.7,
+                &quot;presence_penalty&quot;: 0.5,
+                &quot;description&quot;: &quot;Creative, diverse, engaging content&quot;
+            },
+
+            &quot;customer_service&quot;: {
+                &quot;temperature&quot;: 0.4,
+                &quot;top_p&quot;: 0.9,
+                &quot;top_k&quot;: 50,
+                &quot;frequency_penalty&quot;: 0.2,
+                &quot;presence_penalty&quot;: 0.1,
+                &quot;description&quot;: &quot;Helpful, consistent, slightly varied responses&quot;
+            },
+
+            &quot;code_generation&quot;: {
+                &quot;temperature&quot;: 0.1,
+                &quot;top_p&quot;: 0.95,
+                &quot;top_k&quot;: 20,
+                &quot;frequency_penalty&quot;: 0.0,
+                &quot;presence_penalty&quot;: 0.0,
+                &quot;description&quot;: &quot;Precise, syntactically correct code&quot;
+            },
+
+            &quot;brainstorming&quot;: {
+                &quot;temperature&quot;: 1.0,
+                &quot;top_p&quot;: 0.98,
+                &quot;top_k&quot;: 100,
+                &quot;frequency_penalty&quot;: 1.0,
+                &quot;presence_penalty&quot;: 0.8,
+                &quot;description&quot;: &quot;Maximum creativity and idea diversity&quot;
+            }
+        }
+
+    def get_profile(self, task_type):
+        return self.profiles.get(task_type, self.profiles[&quot;technical_writing&quot;])
+
+    def customize_profile(self, base_profile, adjustments):
+        profile = self.profiles[base_profile].copy()
+        profile.update(adjustments)
+        return profile
+</code></pre>
+<h3 id="dynamic-parameter-adjustment">Dynamic Parameter Adjustment</h3>
+<h4 id="context-aware-parameter-selection"><strong>Context-Aware Parameter Selection</strong></h4>
+<pre><code class="language-python">class DynamicParameterController:
+    def __init__(self):
+        self.adjustment_rules = {
+            &quot;input_length&quot;: {
+                &quot;short&quot;: {&quot;temperature&quot;: +0.1},  # Slightly more creative for short inputs
+                &quot;long&quot;: {&quot;temperature&quot;: -0.1}   # More focused for long inputs
+            },
+            &quot;complexity&quot;: {
+                &quot;simple&quot;: {&quot;top_k&quot;: -10},        # Reduce vocabulary for simple tasks
+                &quot;complex&quot;: {&quot;top_p&quot;: +0.05}     # Increase diversity for complex tasks
+            },
+            &quot;domain&quot;: {
+                &quot;technical&quot;: {&quot;frequency_penalty&quot;: -0.1},  # Allow technical repetition
+                &quot;creative&quot;: {&quot;presence_penalty&quot;: +0.2}    # Encourage topic diversity
+            }
+        }
+
+    def adjust_parameters(self, base_params, context):
+        adjusted = base_params.copy()
+
+        for factor, conditions in self.adjustment_rules.items():
+            if factor in context:
+                condition = context[factor]
+                if condition in conditions:
+                    adjustments = conditions[condition]
+                    for param, delta in adjustments.items():
+                        if param in adjusted:
+                            adjusted[param] = max(0, min(2, adjusted[param] + delta))
+
+        return adjusted
+</code></pre>
+<h3 id="parameter-optimization-strategies">Parameter Optimization Strategies</h3>
+<h4 id="ab-testing-framework"><strong>A/B Testing Framework</strong></h4>
+<pre><code class="language-python">class ParameterOptimizer:
+    def __init__(self):
+        self.test_configurations = []
+        self.results = []
+
+    def create_test_matrix(self, base_config, parameter_ranges):
+        &quot;&quot;&quot;Generate parameter combinations for testing&quot;&quot;&quot;
+        import itertools
+
+        test_configs = []
+        param_names = list(parameter_ranges.keys())
+        param_values = list(parameter_ranges.values())
+
+        for combination in itertools.product(*param_values):
+            config = base_config.copy()
+            for i, param_name in enumerate(param_names):
+                config[param_name] = combination[i]
+            test_configs.append(config)
+
+        return test_configs
+
+    def evaluate_configuration(self, config, test_cases, evaluation_metrics):
+        &quot;&quot;&quot;Evaluate a parameter configuration&quot;&quot;&quot;
+        results = {
+            &quot;config&quot;: config,
+            &quot;metrics&quot;: {},
+            &quot;sample_outputs&quot;: []
+        }
+
+        for metric in evaluation_metrics:
+            score = self._calculate_metric(config, test_cases, metric)
+            results[&quot;metrics&quot;][metric] = score
+
+        return results
+
+    def find_optimal_parameters(self, task_type, test_cases, optimization_target):
+        &quot;&quot;&quot;Find the best parameter combination for a specific task&quot;&quot;&quot;
+        # Define search space based on task type
+        if task_type == &quot;factual&quot;:
+            search_space = {
+                &quot;temperature&quot;: [0.0, 0.1, 0.2],
+                &quot;top_p&quot;: [0.1, 0.3, 0.5],
+                &quot;frequency_penalty&quot;: [0.0, 0.1, 0.2]
+            }
+        elif task_type == &quot;creative&quot;:
+            search_space = {
+                &quot;temperature&quot;: [0.7, 0.9, 1.1],
+                &quot;top_p&quot;: [0.9, 0.95, 0.98],
+                &quot;presence_penalty&quot;: [0.3, 0.6, 0.9]
+            }
+
+        # Generate and test configurations
+        configs = self.create_test_matrix({}, search_space)
+        results = []
+
+        for config in configs:
+            result = self.evaluate_configuration(config, test_cases, [optimization_target])
+            results.append(result)
+
+        # Find best configuration
+        best_config = max(results, key=lambda x: x[&quot;metrics&quot;][optimization_target])
+
+        return {
+            &quot;optimal_config&quot;: best_config[&quot;config&quot;],
+            &quot;performance&quot;: best_config[&quot;metrics&quot;][optimization_target],
+            &quot;all_results&quot;: results
+        }
+</code></pre>
+<h3 id="production-best-practices">Production Best Practices</h3>
+<h4 id="parameter-monitoring-and-adjustment"><strong>Parameter Monitoring and Adjustment</strong></h4>
+<pre><code class="language-python">class ProductionParameterManager:
+    def __init__(self):
+        self.performance_history = []
+        self.adjustment_thresholds = {
+            &quot;accuracy_drop&quot;: 0.05,
+            &quot;creativity_insufficient&quot;: 0.3,
+            &quot;repetition_excessive&quot;: 0.4
+        }
+
+    def monitor_and_adjust(self, current_params, performance_metrics):
+        adjustments = {}
+
+        # Check for accuracy issues
+        if performance_metrics.get(&quot;accuracy&quot;, 1.0) &lt; 0.8:
+            adjustments[&quot;temperature&quot;] = max(0.0, current_params.get(&quot;temperature&quot;, 0.3) - 0.1)
+            adjustments[&quot;top_p&quot;] = max(0.1, current_params.get(&quot;top_p&quot;, 0.9) - 0.1)
+
+        # Check for repetition issues
+        if performance_metrics.get(&quot;repetition_score&quot;, 0.0) &gt; 0.3:
+            adjustments[&quot;frequency_penalty&quot;] = min(2.0, current_params.get(&quot;frequency_penalty&quot;, 0.0) + 0.2)
+
+        # Check for creativity issues
+        if performance_metrics.get(&quot;diversity_score&quot;, 1.0) &lt; 0.5:
+            adjustments[&quot;temperature&quot;] = min(2.0, current_params.get(&quot;temperature&quot;, 0.3) + 0.1)
+            adjustments[&quot;presence_penalty&quot;] = min(2.0, current_params.get(&quot;presence_penalty&quot;, 0.0) + 0.1)
+
+        return adjustments if adjustments else None
+</code></pre>
+<h3 id="key-takeaways-for-parameter-control">Key Takeaways for Parameter Control</h3>
+<ol>
+<li>
+<p><strong>Start with Task-Appropriate Defaults</strong>: Use established parameter profiles for your specific use case</p>
+</li>
+<li>
+<p><strong>Test Systematically</strong>: Don't guess - use A/B testing to find optimal parameters</p>
+</li>
+<li>
+<p><strong>Monitor Performance</strong>: Track how parameter changes affect output quality</p>
+</li>
+<li>
+<p><strong>Combine Parameters Thoughtfully</strong>: Parameters interact with each other - test combinations</p>
+</li>
+<li>
+<p><strong>Adjust Gradually</strong>: Make small parameter changes and measure impact</p>
+</li>
+<li>
+<p><strong>Context Matters</strong>: Consider adjusting parameters based on input characteristics</p>
+</li>
+<li>
+<p><strong>Document Your Findings</strong>: Keep records of what parameter combinations work for different scenarios</p>
+</li>
+</ol>
+<p>Remember: Parameter tuning is both an art and a science. The optimal settings depend on your specific use case, data, and quality requirements. Always validate parameter changes with real-world testing before deploying to production.</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

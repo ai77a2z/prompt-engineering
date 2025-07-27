@@ -152,7 +152,7 @@ venv.bak/
 .ropeproject
 
 # mkdocs documentation
-/site
+# /site  # Commented out for Vercel deployment - we need to commit pre-built files
 
 # mypy
 .mypy_cache/
